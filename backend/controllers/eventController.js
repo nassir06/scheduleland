@@ -28,11 +28,13 @@ const createEvent = async (req, res) => {
 // GET /api/events
 // Private
 const getUserEvents = async (req, res) => {
+
     try {
         const events = await Event.find({ user: req.user._id }).sort({ date: 1 });
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch events', error: error.message });
+
     }
 };
 
@@ -68,22 +70,22 @@ const updateEvent = async (req, res) => {
 // DELETE /api/events/:id
 // Private
 const deleteEvent = async (req, res) => {
-try {
-const event = await Event.findById(req.params.id);
+    try {
+        const event = await Event.findById(req.params.id);
 
-if (!event) {
-return res.status(404).json({ message: 'Event not found' });
-}
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
 
-if (event.user.toString() !== req.user._id.toString()) {
-return res.status(401).json({ message: 'Not authorized to delete this event' });
-}
+        if (event.user.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: 'Not authorized to delete this event' });
+        }
 
-await event.deleteOne();
-res.json({ message: 'Event deleted successfully' });
-} catch (error) {
-res.status(500).json({ message: 'Failed to delete event', error: error.message });
-}
+        await event.deleteOne();
+        res.json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete event', error: error.message });
+    }
 };
 
 module.exports = {
