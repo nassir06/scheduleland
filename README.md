@@ -85,7 +85,7 @@ npm start
 
 ## 👤 Author
 
-Made by [Your Name](https://github.com/yourusername)
+Made by Nassir Mohammed(https://github.com/nassir06)
 
 ---
 
