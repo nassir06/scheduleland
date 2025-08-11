@@ -1,5 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import api from '../api';
+
+const token = localStorage.getItem('token');
+const res = await api.get('/api/events', {
+  headers: { Authorization: `Bearer ${token}` },
+});
+
 
 function Home() {
     return (

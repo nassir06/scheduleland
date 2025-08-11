@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import api from '../api';
+
+const token = localStorage.getItem('token');
+const res = await api.get('/api/events', {
+  headers: { Authorization: `Bearer ${token}` },
+});
+
 
 function Register() {
     const [username, setName] = useState('');
@@ -19,7 +26,7 @@ function Register() {
             });
 
             localStorage.setItem('token', res.data.token);
-            navigate('/events');
+            navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed');
         }
